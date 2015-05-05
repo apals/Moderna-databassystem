@@ -1,0 +1,1 @@
+As Hadoop is intended for long sequential scans and Hive is based on Hadoop, you would expect queries to have a very high latency. Itmeans that Hive would not be appropriate for those applications that need very fast response times, as you can expect with a traditional RDBMS database.
