@@ -28,3 +28,16 @@ Solution: use -p flag<br/>
 
 * starting hive gives cannot create directory<br/>
 Solution: sudo chown -R jb:jb /usr/local/hive<br/>
+
+
+
+
+
+====== - HIVE - ========
+
+create tables : <br/>
+create table fras(id int, fras varchar(200)) ROW FORMAT DELIMITED FIELDS TERMINATED BY ","; <br/>
+
+Set mapreduce tasks </br>
+set mapred.job.tracker = local; </br> 
+
