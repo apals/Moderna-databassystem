@@ -31,6 +31,12 @@ Solution: sudo chown -R jb:jb /usr/local/hive<br/>
 
 
 
+====== - The article - ======
+
+http://cogcomp.cs.illinois.edu/page/tools_view/2 </br>
+
+http://cogcomp.cs.illinois.edu/page/software_view/POS </br>
+
 
 
 ====== - HIVE - ========
