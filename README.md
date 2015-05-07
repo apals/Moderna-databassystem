@@ -1,11 +1,17 @@
 # Moderna-databassystem
 
 Using Hadoop 2.7<br/>
+Hadoop Install tutorial <br/>
+https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-on-ubuntu-13-10<br/>
 
-Install tutorial <br/>
-https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-on-ubuntu-13-10
+Using Hive 1.1.0<br/>
+Hive Install Tutorial<br/>
+https://cwiki.apache.org/confluence/display/Hive/AdminManual+Installation<br/>
 
-Problems:<br/>
+
+
+
+Problems when installing Hadoop:<br/>
 * Localhost connection refused<br/>
 Solution: sudo apt-get install openssh-server
 
