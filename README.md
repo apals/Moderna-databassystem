@@ -35,7 +35,7 @@ Solution: sudo chown -R jb:jb /usr/local/hive<br/>
 
 ====== - HIVE - ========
 
-load files to hive
+LOAD FILES INTO HIVE </br>
 load data local inpath <path> into table <name>  </br>
 
 create tables : <br/>
