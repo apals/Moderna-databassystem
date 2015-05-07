@@ -23,3 +23,6 @@ Solution: sudo chown -R jb:jb /usr/local/hadoop_store
 Problems when installing Hive: <br/>
 * $ $HADOOP_HOME/bin/hadoop fs -mkdir /user/hive/warehouse gives error<br/>
 Solution: use -p flag<br/>
+
+* starting hive gives cannot create directory<br/>
+Solution: sudo chown -R jb:jb /usr/local/hive<br/>
