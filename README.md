@@ -35,6 +35,9 @@ Solution: sudo chown -R jb:jb /usr/local/hive<br/>
 
 ====== - HIVE - ========
 
+load files to hive
+load data local inpath <path> into table <name>  </br>
+
 create tables : <br/>
 create table fras(id int, fras varchar(200)) ROW FORMAT DELIMITED FIELDS TERMINATED BY ","; <br/>
 
