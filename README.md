@@ -1,5 +1,7 @@
 # Moderna-databassystem
-
+Slides<br/>
+http://www8.cs.umu.se/kurser/5DV120/V13/Slides/<br/>
+<br/>
 Using Hadoop 2.7<br/>
 Hadoop Install tutorial <br/>
 https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-on-ubuntu-13-10<br/>
