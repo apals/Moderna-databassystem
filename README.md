@@ -42,6 +42,7 @@ http://cogcomp.cs.illinois.edu/page/software_view/POS </br>
 ====== - HIVE - ========
 
 LOAD FILES INTO HIVE </br>
+FILE SHOULD BE .CVC </br>
 load data local inpath <path> into table <name>  </br>
 
 create tables : <br/>
