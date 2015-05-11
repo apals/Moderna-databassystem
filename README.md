@@ -55,3 +55,13 @@ select REGEXP_EXTRACT(fras, '(May)', 0) as from senty; </br>
 Set mapreduce tasks </br>
 set mapred.job.tracker = local; </br> 
 
+
+
+======== - udfs - ==========
+
+1. jar cf myjar className.class </br>
+2. hive > add jar '/home/jb/KTH/myjar' </br>
+3. create temporary function funcName as 'className' </br>
+4. select funcName(fras) from senty; </br>
+
+
