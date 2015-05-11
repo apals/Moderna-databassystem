@@ -48,6 +48,10 @@ load data local inpath <path> into table <name>  </br>
 create tables : <br/>
 create table fras(id int, fras varchar(200)) ROW FORMAT DELIMITED FIELDS TERMINATED BY ","; <br/>
 
+create table sent(id INT, fras STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ".";  </br>
+
+
+
 Set mapreduce tasks </br>
 set mapred.job.tracker = local; </br> 
 
