@@ -1,3 +1,5 @@
+#Transactions för 8
+
 8.
 
 t1.sql
@@ -22,3 +24,307 @@ SELECT * from rec WHERE time_slot = 1 AND flight IS NULL;
 SELECT pg_sleep(10);
 UPDATE rec SET flight='DY321' WHERE time_slot = 1 AND runway = (SELECT runway from rec WHERE time_slot = 1 AND flight IS NULL order by runway limit 1);
 COMMIT;
+
+
+#Rest of answers
+
+1.
+
+
+Not conflict serializable:
+The conflict graph is cyclic.
+
+Not view serializable:
+http://www.iai.uni-bonn.de/III/lehre/vorlesungen/Informationssysteme/SS01/18_vorlesung.pdf
+
+If we do schedule S = r_1(x), w_1(x), r_2(x), w_(2x) 
+AND the given one
+		S' = r_1(x), r_2(x), w_1(x), w_2(x)
+
+then 
+in S, r_2(x) reads the value from w_1(x)
+but
+in S', they do not
+
+
+2. 
+
+Not conlict serializable:
+The conflict graph is cyclic.
+
+
+It is view serializable.
+
+
+
+
+
+3. Assume that the following schedule with locks is executed over a SVCC mechanism.
+
+rlk_1(x), r_1(x), rlk_2(x), wlk_1(x),w_1(x),ulk_1(x),cmt_1, wlk_2(x),w_2(x),ulk_2(x), cmt_2
+
+Describe what happens.
+
+
+
+Does this schedule respect 2PL, SS2PL (AKA ‘Rigorous’), Conservative 2PL?  
+
+
+
+2PL: Ti satisfies the two-phase locking protocol (2PL) if no lock or upgrade operation comes after an unlock or
+downgrade operation in the ordering.
+
+The schedule does respect 2PL. 
+
+
+SS2PL: Ti satisfies the strong strict two-phase locking protocol (SS2PL) if it satisfies 2PL and
+all locks (read and write) are held until the transaction commits.
+
+The schedule does respect SS2pl. There are no unlocks until right before the commit.
+
+
+Conservative 2PL: conservative 2PL,
+in which all locks are acquired before the transaction is allowed to proceed.
+
+No, there are reads and writes before all the locks are acquired. For example
+rlk_1(x), r_1(x), rlk_2(x), wlk_1(x),
+we do r_1(x) before wlk_1(x)
+
+
+
+
+
+
+
+4. Which SQL isolation levels are met with schedules that observe:
+
+if phantom reads can be done, then it is not 2pl
+"since in 2PL all tuples in the range of the query must be locked."
+Repeatable read: However, range-locks are not managed
+Read commited: range-locks are not managed.
+
+
+  a. locking protocols
+Read commited
+Repeatable read
+Serializable
+
+  b. 2PL
+Serializable
+
+ c. SS2PL (AKA 'Rigorous')
+Serializable
+
+
+ d. Conservative and Rigorous
+
+
+
+
+
+
+
+
+
+
+
+Systems exercise
+
+5:
+
+T1 SERIALIZABLE, T2 SERIALIZABLE:
+
+flight SK123 gets booked
+t2 error: could not serialize access due to concurrent update
+
+T1 SERIALIZABLE, T2 REPEATABLE READ:
+SK123 gets booked. t2 error. same as before
+
+T1 SERIALIZABLE, T2 READ COMMITTED:
+dy321 gets booked
+
+
+
+T1 REPEATABLE READ, T2 SERIALIZABLE:
+sk123 gets booked. t2 error.
+
+T1 REPEATABLE READ, T2 REPEATABLE READ:
+sk123 gets booked. t2 error.
+
+T1 REPEATABLE READ, T2 READ COMMITTED:
+dy321 gets booked
+
+
+T1 READ COMMITTED, T2 SERIALIZABLE:
+sk123 gets booked. t2 error
+
+T1 READ COMMITTED, T2 REPEATABLE READ:
+sk123 gets booked. t2 error
+
+T1 READ COMMITTED, T2 READ COMMITTED:
+dy321 gets booked
+
+
+
+
+
+6.
+T1 SERIALIZABLE, T2 SERIALIZABLE:
+both gets booked
+
+T1 SERIALIZABLE, T2 REPEATABLE READ:
+both gets booked
+
+T1 SERIALIZABLE, T2 READ COMMITTED:
+both gets booked
+
+T1 REPEATABLE READ, T2 SERIALIZABLE:
+both gets booked
+
+T1 REPEATABLE READ, T2 REPEATABLE READ
+BOTH gets booked
+
+T1 REPEATABLE READ, T2 READ COMMITTED:
+both gets booked
+
+
+T1 READ COMMITTED, T2 SERIALIZABLE:
+both gets booked
+
+T1 READ COMMITTED, T2 REPEATABLE READ:
+both gets booked
+
+T1 READ COMMITTED, T2 READ COMMITTED:
+both gets booked
+
+
+7.
+
+T1 SERIALIZABLE, T2 SERIALIZABLE:
+sk123 gets booked. no rain. error
+
+T1 SERIALIZABLE, T2 REPEATABLE READ:
+sk123 gets booked. no rain. error
+
+T1 SERIALIZABLE, T2 READ COMMITTED:
+sk123 gets booked. yes rain.
+
+T1 REPEATABLE READ, T2 SERIALIZABLE:
+sk123 gets booked. no rain. error
+
+T1 REPEATABLE READ, T2 REPEATABLE READ
+sk123 gets booked. no rain. error
+
+T1 REPEATABLE READ, T2 READ COMMITTED:
+sk123 gets booked. yes rain.
+
+
+T1 READ COMMITTED, T2 SERIALIZABLE:
+sk123 gets booked. no rain. error
+
+T1 READ COMMITTED, T2 REPEATABLE READ:
+sk123 gets booked. no rain. error
+
+T1 READ COMMITTED, T2 READ COMMITTED:
+sk123 gets boooked. yes rain.
+
+
+8.
+
+T1 SERIALIZABLE, T2 SERIALIZABLE:
+sk123 gets booked on 1-1. t2 error	
+
+T1 SERIALIZABLE, T2 REPEATABLE READ:
+sk123 gets booked on 1-1. t2 error
+
+T1 SERIALIZABLE, T2 READ COMMITTED:
+dy321 gets booked on 2-1.
+sk123 gets booked on 1-1.
+
+
+T1 REPEATABLE READ, T2 SERIALIZABLE:
+sk123 gets booked on 1-1. t2 error
+
+T1 REPEATABLE READ, T2 REPEATABLE READ
+sk123 gets booked on 1-1. t2 error
+
+T1 REPEATABLE READ, T2 READ COMMITTED:
+dy321 gets booked on 2-1.
+sk123 gets booked on 1-1.
+
+
+T1 READ COMMITTED, T2 SERIALIZABLE:
+sk123 gets booked on 1-1. t2 error
+
+T1 READ COMMITTED, T2 REPEATABLE READ:
+sk123 gets booked on 1-1. t2 error
+
+T1 READ COMMITTED, T2 READ COMMITTED:
+dy321 gets booked on 2-1.
+sk123 gets booked on 1-1.
+
+
+
+
+
+
+9.
+
+
+CREATE RULE regel AS ON UPDATE to rec
+WHERE (old.runway = new.runway)
+AND (
+SELECT flight FROM rec WHERE runway = old.runway AND
+(time_slot = new.time_slot + 1 OR time_slot = new.time_slot - 1) limit 1
+) IS NOT NULL
+DO INSTEAD NOTHING;
+
+
+
+10.
+
+
+
+
+T1 SERIALIZABLE, T2 SERIALIZABLE:
+sk123 booked on 1-1.
+t2 fail.
+
+T1 SERIALIZABLE, T2 REPEATABLE READ:
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
+T1 SERIALIZABLE, T2 READ COMMITTED:
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
+
+
+T1 REPEATABLE READ, T2 SERIALIZABLE:
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
+
+T1 REPEATABLE READ, T2 REPEATABLE READ
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
+
+T1 REPEATABLE READ, T2 READ COMMITTED:
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
+
+
+T1 READ COMMITTED, T2 SERIALIZABLE:
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
+T1 READ COMMITTED, T2 REPEATABLE READ:
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
+T1 READ COMMITTED, T2 READ COMMITTED:
+sk123 booked on 1-1.
+dy321 booked on 1-2.
+
