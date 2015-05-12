@@ -1,0 +1,24 @@
+8.
+
+t1.sql
+
+/* 
+	\i C:/t1.sql
+*/
+
+BEGIN TRANSACTION ISOLATION LEVEL read committed;
+SELECT * from rec WHERE time_slot = 1 AND flight IS NULL;
+SELECT pg_sleep(10);
+UPDATE rec SET flight='SK123' WHERE time_slot = 1 AND runway = (SELECT runway from rec WHERE time_slot = 1 AND flight IS NULL order by runway limit 1);
+COMMIT;
+
+
+t2.sql
+/* 
+	\i C:/t2.sql
+*/
+BEGIN TRANSACTION ISOLATION LEVEL read committed;
+SELECT * from rec WHERE time_slot = 1 AND flight IS NULL;
+SELECT pg_sleep(10);
+UPDATE rec SET flight='DY321' WHERE time_slot = 1 AND runway = (SELECT runway from rec WHERE time_slot = 1 AND flight IS NULL order by runway limit 1);
+COMMIT;
