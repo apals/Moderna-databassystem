@@ -307,8 +307,10 @@ t1 starts. books sk123 on 1-1. t2 starts. reads the latest committed thing (i.e.
 T1 SERIALIZABLE, T2 READ COMMITTED:
 sk123 booked on 1-1.
 dy321 booked on 1-2.
+t2 only reads the most recently commited thing. t1 has not commited yet when t2 starts reading.
 
 
+the below things work  because the t1 isolation level does not manage range-locks, i.e. it doesnt matter if it is looking at 1-2.
 
 T1 REPEATABLE READ, T2 SERIALIZABLE:
 sk123 booked on 1-1.
