@@ -1,17 +1,15 @@
 #Transactions för 8
 
 8.
-
 t1.sql
-
 /* 
 	\i C:/t1.sql
 */
 
-BEGIN TRANSACTION ISOLATION LEVEL read committed;
+BEGIN TRANSACTION ISOLATION LEVEL serializable;
 SELECT * from rec WHERE time_slot = 1 AND flight IS NULL;
 SELECT pg_sleep(10);
-UPDATE rec SET flight='SK123' WHERE time_slot = 1 AND runway = (SELECT runway from rec WHERE time_slot = 1 AND flight IS NULL order by runway limit 1);
+UPDATE rec SET flight='SK123' WHERE time_slot = 1 AND runway = (SELECT min(runway) from rec WHERE time_slot = 1 AND flight IS NULL);
 COMMIT;
 
 
@@ -19,10 +17,10 @@ t2.sql
 /* 
 	\i C:/t2.sql
 */
-BEGIN TRANSACTION ISOLATION LEVEL read committed;
+BEGIN TRANSACTION ISOLATION LEVEL serializable;
 SELECT * from rec WHERE time_slot = 1 AND flight IS NULL;
 SELECT pg_sleep(10);
-UPDATE rec SET flight='DY321' WHERE time_slot = 1 AND runway = (SELECT runway from rec WHERE time_slot = 1 AND flight IS NULL order by runway limit 1);
+UPDATE rec SET flight='DY321' WHERE time_slot = 1 AND runway = (SELECT min(runway) from rec WHERE time_slot = 1 AND flight IS NULL);
 COMMIT;
 
 
@@ -133,16 +131,17 @@ Systems exercise
 5:
 
 T1 SERIALIZABLE, T2 SERIALIZABLE:
-
 flight SK123 gets booked
 t2 error: could not serialize access due to concurrent update
+t1 holds locks
 
 T1 SERIALIZABLE, T2 REPEATABLE READ:
 SK123 gets booked. t2 error. same as before
+t1 holds locks
 
 T1 SERIALIZABLE, T2 READ COMMITTED:
 dy321 gets booked
-
+"read committed is an isolation level that guarantees that any data read is committed at the moment it is read"
 
 
 T1 REPEATABLE READ, T2 SERIALIZABLE:
@@ -200,6 +199,7 @@ both gets booked
 
 7.
 
+
 T1 SERIALIZABLE, T2 SERIALIZABLE:
 sk123 gets booked. no rain. error
 
@@ -208,6 +208,7 @@ sk123 gets booked. no rain. error
 
 T1 SERIALIZABLE, T2 READ COMMITTED:
 sk123 gets booked. yes rain.
+"read committed is an isolation level that guarantees that any data read is committed at the moment it is read"
 
 T1 REPEATABLE READ, T2 SERIALIZABLE:
 sk123 gets booked. no rain. error
