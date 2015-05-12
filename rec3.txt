@@ -62,6 +62,17 @@ It is view serializable.
 rlk_1(x), r_1(x), rlk_2(x), wlk_1(x),w_1(x),ulk_1(x),cmt_1, wlk_2(x),w_2(x),ulk_2(x), cmt_2
 
 Describe what happens.
+T1 read-locks x. 
+T1 reads x.
+T2 read-locks x.
+T1 write-locks x because write-locks have higher priority.
+T1 writes x.
+T1 unlocks X.
+T1 commits.
+T2 write-locks x.
+T2 writes x
+T2 unlocks x
+T2 commits
 
 
 
