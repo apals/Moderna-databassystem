@@ -1,0 +1,154 @@
+1.  F
+2.  F
+3.  F
+4.  T
+5.  T
+6.  T
+7.  T
+8.  F
+9.  F
+10. T
+11. T - c is not a key, and d is not prime
+12. F
+13. F 
+14. T
+15. F
+16. T
+17. T
+18. T - acid property
+19. T
+20. F - they are equivalent
+
+21.  {1, 1, 1, 3}
+22 (1+1+0)/3
+23. true?
+24. for let where return
+25. Indexes make it faster to search tables, but longer to write to. 
+Having unused indexes will end come causing some unnecessary slow down.
+26. the statement is prepared once and hence the db engine only has to parse it once and work out an execution plan once. In the second example the sql and parameters are passed every time and the SQL looks different every time so it is parsed each time.
+27. U(SA), W(SBC), T(BT)
+28. yes
+29. R1(BS), R2(BC), R3(SA), R4(ST) - key
+
+30. papper
+
+
+31. papper
+32. select c.id, AVG(price) from I natural join B as T join C on c.cid = T.cid group by c.cid;
+33. hitta chefen?
+34. namnet på alla customers som har köpt allting
+35. SELECT name FROM c NATURAL JOIN (SELECT cid FROM C EXCEPT SELECT cid FROM (SELECT cid, iid FROM c CROSS JOIN i EXCEPT (SELECT cid, iid FROM B)) AS cid) as name;
+36. SELECT name FROM c NATURAL JOIN (SELECT cid FROM C EXCEPT SELECT cid FROM (SELECT cid, iid FROM c CROSS JOIN i WHERE price > 1000 EXCEPT (SELECT cid, iid FROM B NATURAL JOIN I where price > 1000)) AS cid) as name;
+
+37.
+
+let  $x:= WorldTown
+for  $t in distinct-values($x/town/@inpolity)
+let $count := count(for $c in $x/pop
+where $c/@forpolity = $t and $c > 50 
+return data($c/@forpolity))
+
+return <country>
+<name>{data($t)}</name>
+<num>{data($count)}</num>
+
+
+</country>
+
+with recursive R(eid, boss, k) as (
+select eid, boss, 1 from E where name = 'Ola'
+union
+select r.eid, e.boss, r.k+1 from E e, R r
+where r.boss = e.eid)
+select name, k from R natural join E order by k desc;
+
+
+
+
+38. 
+
+om allt går som det ska
+id:1 amount: 9
+id:2 amount: 5
+14
+
+om t1 failar:
+id:1 amount: 5
+id:2 amount: 9
+14
+
+om t2 failar:
+id:1 amount: 10
+id:2 amount: 5
+15
+
+om t3 failar:
+id:1 amount: 9
+id:2 amount: 5
+14
+
+om t1, t2 failar:
+id:1 amount: 5
+id:2 amount: 9
+
+
+om t1, t3 failar:
+id:1 amount: 5 
+id:2 amount: 10
+
+om t2, t3 failar:
+id:1 amount: 10
+id:2 amount: 5
+
+om t1, t2, t3 failar:
+id:1 amount: 5
+id:2 amount: 10 
+
+ANSWER: 14, 15
+
+39.
+
+
+---------------------------------------
+
+t11 ok, t21 ok, t1 fails, t22 ok, t3 ok
+SUM: 13
+
+----------------------------------
+t11 ok, t21 ok, t1 fails, t22, t3 fails
+SUM: 14
+
+----------------------------------
+t1 and t2 fails:
+SUM: 15
+
+----------------------------------
+t11 -
+ 10- 10
+
+t31:
+ read 10 - 10
+
+t12: 10 - 5
+t32: 10 - 4
+
+SUM: 14
+
+
+----------------------------------------
+if all success super 100%
+SUM: 14
+
+----------------------------------------
+
+40.
+
+BEGIN;
+UPDATE account SET amount = amount - 1 WHERE id = 1 AND amount > 5;
+COMMIT;
+
+
+
+
+
+
