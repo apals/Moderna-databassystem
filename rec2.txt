@@ -1,0 +1,101 @@
+1.
+select nv_person.name from nv_person INNER JOIN 
+(select * from nv_group INNER JOIN nv_member_of ON nv_group.id = nv_member_of.obj 
+WHERE nv_group.name='The Beatles' AND nv_group.enddate=nv_member_of.enddate) 
+AS first ON first.subj=nv_person.id;
+
+Time: 1382,588 ms
+
+efter index
+CREATE INDEX artist_name_idx on artist (name);
+
+Time: 105,115 ms
+
+2.
+select cp_release_group.name from cp_release_group 
+INNER JOIN nv_group ON nv_group.id = cp_release_group.artist
+WHERE nv_group.name='The Beatles' and cp_release_group.type='Album';
+
+Time: 2482,247 ms
+
+efter index
+CREATE INDEX artist_name_idx on artist (name);
+Time: 322,209 ms
+
+
+3.
+select count(nv_group.name) from nv_group where nv_group.name='Nirvana';
+
+Time: 145,838 ms
+
+efter index
+CREATE INDEX artist_name_idx on artist (name);
+Time: 1,238 ms
+
+4.
+SELECT s.enddate from (select obj, nv_member_of.enddate from nv_person join nv_member_of ON 
+(nv_person.id = nv_member_of.subj) WHERE nv_person.name = 'Pete Best') as s JOIN nv_group ON obj = nv_group.id 
+WHERE nv_group.name = 'The Beatles';
+
+Time: 622,168 ms
+
+efter index
+CREATE INDEX artist_name_idx on artist (name);
+Time: 43,888 ms
+
+5.
+SELECT name, year from (select *, extract(year from age(enddate, begindate)) as year from nv_person where 
+enddate > '1965-01-01' and enddate < '1995-01-01') as foo WHERE foo.year = 27;
+
+Time: 286,094 ms
+ingen skillnad efter indexering
+
+
+INDEX:
+CREATE INDEX artist_name_idx on artist (name);
+
+
+
+
+teori
+1.
+(8192-16)/40 = 204
+
+8K byte block size
+40 byte record size
+
+2.
+107000000000/204 = 522 million
+
+3.
+n = floor((pagesize+keysize) / (ptrsize+keysize)) = floor((8192+8)/(8+8)) = 512.5 = 512
+
+4.
+m = # of keys in the root vertex
+q = # of keys in internal vertices
+r = # of records in a leaf vertex
+d = depth
+
+m = 1 
+
+q = floor((n-1)/2) = floor(511/2) = 255
+
+r = floor((8192 - 16)/40) = 204
+
+d = log((107*10^9+ 1) / ((1 + 1) * 204)) / log(255+1) + 1   = 4.5
+Answer: 4
+
+
+5.
+
+m = # of keys in the root vertex
+q = # of keys in internal vertices
+r = # of records in a leaf vertex
+d = depth
+
+m = q = 511
+r = floor((8192 - 16)/40) = 204
+
+d = log((107*10^9 + 1) / ((511 + 1) * 204)) / log(255+1) + 1     = 3.2
+
+Answer: 4  
