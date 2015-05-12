@@ -285,15 +285,24 @@ DO INSTEAD NOTHING;
 10.
 
 
-
-
 T1 SERIALIZABLE, T2 SERIALIZABLE:
 sk123 booked on 1-1.
 t2 fail.
+ERROR: could not serialize access due to read/write dependencies amon transactions 
+DETAIL: Reason code: Canceled on identification as a pivot, during write.
+HINT: The transaction might succeed if retried.
+
+Explanation: <br/>
+1. T1 books sk123 on 1-1, but does not commit. It has a write lock on the row </br>
+2. T2 tries to book DY321 on 1-2. It has to check that 1-1 and 1-3 is available (due to the rule), but 1-1 is locked by T1. <br/>
+
 
 T1 SERIALIZABLE, T2 REPEATABLE READ:
 sk123 booked on 1-1.
 dy321 booked on 1-2.
+t1 starts. books sk123 on 1-1. t2 starts. reads the latest committed thing (i.e. nothing is booked) and books 1-2.
+
+
 
 T1 SERIALIZABLE, T2 READ COMMITTED:
 sk123 booked on 1-1.
