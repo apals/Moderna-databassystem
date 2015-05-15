@@ -6,6 +6,12 @@ Using Hadoop 2.7<br/>
 Hadoop Install tutorial <br/>
 https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-on-ubuntu-13-10<br/>
 
+OS X Links</br>
+http://amodernstory.com/2014/09/23/installing-hadoop-on-mac-osx-yosemite/ </br>
+http://amodernstory.com/2014/09/23/hadoop-on-mac-osx-yosemite-part-2/ </br>
+http://amodernstory.com/2015/03/29/installing-hive-on-mac/ </br>
+
+
 Using Hive 1.1.0<br/>
 Hive Install Tutorial<br/>
 https://cwiki.apache.org/confluence/display/Hive/AdminManual+Installation<br/>
