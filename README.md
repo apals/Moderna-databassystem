@@ -92,11 +92,20 @@ SELECT * FROM (SELECT regexp_extract(fras, "May", 0) as match from fras) t2 WHER
 
 
 http://www.megatome.com/2013/07/16/simple-data-analysis-with-pig/
-fras = LOAD '/user/apals/input2/*' USING PigStorage(',') AS
-    (id:int, fras:chararray);
-dump fras;
+fras = LOAD '/user/apals/input2/*' USING PigStorage(',') AS <br/>
+    (id:int, fras:chararray); </br>
+dump fras;</br>
 
-prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);
-dump prutt;
-match = filter prutt by kek is not null;
-dump match;
+prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);</br>
+dump prutt;</br>
+match = filter prutt by kek is not null;</br>
+dump match;</br>
+
+RUN PIG LOCALLY </br>
+pig -x local </br>
+fras = LOAD '/Users/apals/KTH/Moderna-databassystem/pigdata/*' USING PigStorage(',') AS </br>
+    (id:int, fras:chararray); </br>
+    prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);</br>
+dump prutt;</br>
+match = filter prutt by kek is not null;</br>
+dump match;</br>
