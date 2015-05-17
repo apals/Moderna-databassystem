@@ -85,3 +85,13 @@ queries return NULL-columns when the regex doesn't match.
  * but has more than expected groups, the additional groups are just ignored.
 
 SELECT * FROM (SELECT regexp_extract(fras, "May", 0) as match from fras) t2 WHERE match <> "";
+
+
+
+
+
+
+http://www.megatome.com/2013/07/16/simple-data-analysis-with-pig/
+fras = LOAD '/user/apals/input2/*' USING PigStorage(',') AS
+    (id:int, fras:chararray);
+dump fras;
