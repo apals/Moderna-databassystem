@@ -69,5 +69,14 @@ set mapred.job.tracker = local; </br>
 2. hive > add jar '/home/jb/KTH/myjar' </br>
 3. create temporary function funcName as 'className' </br>
 4. select funcName(fras) from senty; </br>
+5. 
+
+
+==============
+
+ * In deserialization stage, if a row does not match the regex, then all columns
+ * in the row will be NULL. If a row matches the regex but has less than
+ * expected groups, the missing groups will be NULL. If a row matches the regex
+ * but has more than expected groups, the additional groups are just ignored.
 
 
