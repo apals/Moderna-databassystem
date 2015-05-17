@@ -18,6 +18,9 @@ https://cwiki.apache.org/confluence/display/Hive/AdminManual+Installation<br/>
 https://cwiki.apache.org/confluence/display/Hive/GettingStarted<br/>
 http://www.tutorialspoint.com/hive/hive_installation.htm<br/>
 
+Installing Pig on OSX</br>
+http://www.getblueshift.com/setting-up-hadoop-2-4-and-pig-0-12-on-osx-locally/
+
 
 
 
@@ -72,11 +75,13 @@ set mapred.job.tracker = local; </br>
 5. 
 
 
-==============
+============== - queries - ==================
+This is documentation from https://github.com/apache/hive/blob/trunk/contrib/src/java/org/apache/hadoop/hive/contrib/serde2/RegexSerDe.java
+queries return NULL-columns when the regex doesn't match.
 
  * In deserialization stage, if a row does not match the regex, then all columns
  * in the row will be NULL. If a row matches the regex but has less than
  * expected groups, the missing groups will be NULL. If a row matches the regex
  * but has more than expected groups, the additional groups are just ignored.
 
-
+SELECT * FROM (SELECT regexp_extract(fras, "May", 0) as match from fras) t2 WHERE match <> "";
