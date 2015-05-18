@@ -93,7 +93,7 @@ queries return NULL-columns when the regex doesn't match.
 SELECT * FROM (SELECT regexp_extract(fras, "May", 0) as match from fras) t2 WHERE match <> "";
 
 
-
+SELECT * FROM (SELECT regexp_extract(sent, "(january|february|march|april|may|june|july|august|september|october |november|december)(\s+\d?\d\s*,?)?\s*\d{4}", 0) as match from julle) t2 WHERE match <> ""; 
 
 
 
