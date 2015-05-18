@@ -11,6 +11,10 @@ http://amodernstory.com/2014/09/23/installing-hadoop-on-mac-osx-yosemite/ </br>
 http://amodernstory.com/2014/09/23/hadoop-on-mac-osx-yosemite-part-2/ </br>
 http://amodernstory.com/2015/03/29/installing-hive-on-mac/ </br>
 
+====== - Starting several nodes - =========
+https://bigdata.wordpress.com/2010/05/27/hadoop-cookbook-4-how-to-run-multiple-data-nodes-on-one-machine/  </br>
+
+
 
 Using Hive 1.1.0<br/>
 Hive Install Tutorial<br/>
