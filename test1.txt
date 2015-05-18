@@ -1,0 +1,26 @@
+#TEST1
+
+hadoop fs -mkdir -p input</br>
+hadoop fs -put KTH/Moderna-databassystem/pigdata/* input</br>
+
+
+==== --- USING PIG ---- ====
+
+$ pig
+grunt> fras = LOAD '/user/apals/input/*' USING PigStorage(',') AS (id:int, fras:chararray); 
+grunt> prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);
+grunt> match = filter prutt by kek is not null;
+grunt> dump match;
+
+Script Statistics: 
+
+HadoopVersion	PigVersion	UserId	StartedAt	FinishedAt	Features
+2.7.0	0.12.1-SNAPSHOT	apals	2015-05-18 12:06:18	2015-05-18 12:06:26	FILTER
+
+
+==== --- USING HIVE --- ===
+
+hive> create table fras(id int, fras varchar(200)) ROW FORMAT DELIMITED FIELDS TERMINATED BY ",";
+hive> load data inpath '/user/apals/input/testdata.csv' into table fras; 
+hive> SELECT * FROM (SELECT regexp_extract(fras, "o", 0) as match from fras) t2 WHERE match <> "";
+Time taken: 0.096 seconds, Fetched: 5 row(s)
