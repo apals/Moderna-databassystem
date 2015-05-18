@@ -97,26 +97,26 @@ SELECT * FROM (SELECT regexp_extract(sent, "(january|february|march|april|may|ju
 
 
 
-http://www.megatome.com/2013/07/16/simple-data-analysis-with-pig/
-fras = LOAD '/user/apals/input2/*' USING PigStorage(',') AS <br/>
+http://www.megatome.com/2013/07/16/simple-data-analysis-with-pig/</br>
+grunt> fras = LOAD '/user/apals/input2/*' USING PigStorage(',') AS <br/>
     (id:int, fras:chararray); </br>
-dump fras;</br>
+grunt> dump fras;</br>
 
-prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);</br>
-dump prutt;</br>
-match = filter prutt by kek is not null;</br>
-dump match;</br>
+grunt> prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);</br>
+grunt> dump prutt;</br>
+grunt> match = filter prutt by kek is not null;</br>
+grunt> dump match;</br>
 
 RUN PIG LOCALLY </br>
-pig -x local </br>
-fras = LOAD '/Users/apals/KTH/Moderna-databassystem/pigdata/*' USING PigStorage(',') AS </br>
+$ pig -x local </br>
+grunt> fras = LOAD '/Users/apals/KTH/Moderna-databassystem/pigdata/*' USING PigStorage(',') AS </br>
     (id:int, fras:chararray); </br>
-    prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);</br>
-dump prutt;</br>
-match = filter prutt by kek is not null;</br>
-dump match;</br>
+grunt> prutt = foreach fras generate REGEX_EXTRACT(fras, 'May', 0) as (kek:chararray);</br>
+grunt> dump prutt;</br>
+grunt> match = filter prutt by kek is not null;</br>
+grunt> dump match;</br>
 
-==== ----- POS TAGGING ---- ======
+==== ----- POS TAGGING ---- ======</br>
 http://nlp.stanford.edu/software/tagger.shtml</br>
 http://www.galalaly.me/index.php/2011/05/tagging-text-with-stanford-pos-tagger-in-java-applications/</br>
 http://en.wikipedia.org/wiki/Proper_noun</br>
