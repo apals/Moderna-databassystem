@@ -115,3 +115,10 @@ fras = LOAD '/Users/apals/KTH/Moderna-databassystem/pigdata/*' USING PigStorage(
 dump prutt;</br>
 match = filter prutt by kek is not null;</br>
 dump match;</br>
+
+==== ----- POS TAGGING ---- ======
+http://www.galalaly.me/index.php/2011/05/tagging-text-with-stanford-pos-tagger-in-java-applications/
+
+Problems:</br>
+ java.lang.NoClassDefFoundError:edu/stanford/nlp/tagger/maxent/MaxentTagger</br>
+ Solution: Build with jre 1.8</br>
