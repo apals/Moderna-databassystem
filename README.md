@@ -117,7 +117,12 @@ match = filter prutt by kek is not null;</br>
 dump match;</br>
 
 ==== ----- POS TAGGING ---- ======
-http://www.galalaly.me/index.php/2011/05/tagging-text-with-stanford-pos-tagger-in-java-applications/
+http://nlp.stanford.edu/software/tagger.shtml</br>
+http://www.galalaly.me/index.php/2011/05/tagging-text-with-stanford-pos-tagger-in-java-applications/</br>
+http://en.wikipedia.org/wiki/Proper_noun</br>
+https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html</br>
+
+
 
 Problems:</br>
  java.lang.NoClassDefFoundError:edu/stanford/nlp/tagger/maxent/MaxentTagger</br>
