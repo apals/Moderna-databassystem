@@ -1,0 +1,14 @@
+=== MED 1 NOD ===
+
+1. Hitta antal datum i wikipedia-dumpen
+	- i pig
+	- i hive
+	- ta tid och jämför
+
+
+
+Saker vi kan göra
+Flera noder
+Jämföra med en Parallell DBMS
+POS-tagging?
+
