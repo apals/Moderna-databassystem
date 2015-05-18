@@ -38,7 +38,9 @@ Solution: use -p flag<br/>
 * starting hive gives cannot create directory<br/>
 Solution: sudo chown -R jb:jb /usr/local/hive<br/>
 
-
+Problems </br>:
+rm everything in data-folder in hdfs</br>
+check this: http://stackoverflow.com/questions/16020334/hadoop-datanode-process-killed</br>
 
 ====== - The article - ======
 
