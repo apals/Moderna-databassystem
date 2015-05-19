@@ -78,7 +78,8 @@ set mapred.job.tracker = local; </br>
 2. hive > add jar '/home/jb/KTH/myjar' </br>
 3. create temporary function funcName as 'className' </br>
 4. select funcName(fras) from senty; </br>
-5. 
+
+step 2 can give an error.  Fix :  add jar /home/jb/KTH/myjar </br>
 
 
 ============== - queries - ==================
