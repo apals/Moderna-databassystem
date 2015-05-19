@@ -1,4 +1,7 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
@@ -6,32 +9,23 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class Main {
 
-	private File file;
-	private Scanner scanner;
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		MaxentTagger t = new MaxentTagger("tagger/english-left3words-distsim.tagger");
-		String sentence = "Jemil is a warrior. Mike has a big leg. The wall is cool.";
+		File file = new File("files/testdump");
+		File outFile = new File("files/wikidump_sentence_splitted_pos_tagged");
+		Scanner scanner = new Scanner(file);
 		
-		openFile(args[0]);
+		FileWriter fw = new FileWriter(outFile);
+		BufferedWriter bw = new BufferedWriter(fw);
 		
-		System.out.println();
-		System.out.println(sentence);
-		System.out.println(t.tagString(sentence));
+		while(scanner.hasNext()) {
+			String line = scanner.nextLine();
+			String taggedSentence = t.tagString(line);
+			bw.write(taggedSentence + "\n");
+		}
+		scanner.close();
+		bw.close();
+		
 	}	
 	
-	private static void openFile(String filename) {
-		
-	}
-	
 }
-
-/***
-
-Kastrerade barn är snygga.
-Fredrik är cool.
-
-
-
-
-***/
