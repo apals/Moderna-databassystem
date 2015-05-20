@@ -1,0 +1,77 @@
+Result for Project
+
+
+
+==== HIVE ====
+loading time for sentences  : 2.792 sec
+loading time for tokens : 8.626 sec
+
+
+COUNT on tokens : 22.627 sec
+COUNT ON sentences : 2.379 sec
+
+
+SELECT * FROM (SELECT regexp_extract(sentence, 
+"(January|February|March|April|May|June|July|August|September|October|November|December)", 0)
+ as match from sentences) t2 WHERE match <> "";
+
+REGEX - Count on Months, Sentences : 21.452 sec
+REGEX - Count on Months, Tokens : 98.724 sec , 97.713 sec
+
+
+UDF - CRF
+Name entities ON tokens : 6219.779 secs , rows : 7073379
+
+limit 20k
+Name entities on tokens : 154.06 secs
+
+limit 40k
+Name entities on tokens : 294.763 secs
+
+limit 80k
+Name entities on tokens : 508.775
+
+
+
+
+
+===== PIG ========
+
+token_count = FOREACH (GROUP tokens ALL) GENERATE COUNT(tokens);
+dump token_count;
+
+COUNT on tokens : 349.00 sec
+COUNT ON sentences : 8.00 sec
+
+
+---------------------------------------------------
+//count on månader i sentences
+match = foreach sentences generate REGEX_EXTRACT(sentence, '(January|February|March|April|May|June|July|August|September|October|November|December)', 0) as (month:chararray);
+grunt> months = filter match by month is not null;
+grunt> numberofmonths = FOREACH (GROUP months ALL) GENERATE COUNT(months);
+grunt> dump numberofmonths;
+
+//count on månader i tokens
+token_months = FOREACH tokens GENERATE REGEX_EXTRACT(token, '(January|February|March|April|May|June|July|August|September|October|November|December)', 0) as (token_month:chararray);
+grunt> token_months_not_null = FILTER token_months by token_month is not null;
+grunt> token_number_of_months = FOREACH (GROUP token_months_not_null ALL) GENERATE COUNT(token_months_not_null);
+grunt> dump token_number_of_months;
+
+REGEX - Count on Months, Sentences : 25.00 secs
+REGEX - Count on Months, Tokens : 237.00 secs
+
+-----------------------------------------------------
+
+
+
+UDF - CRF
+Name entities ON tokens : , rows : 7073379
+
+limit 20k
+Name entities on tokens : 
+
+limit 40k
+Name entities on tokens : 
+
+limit 80k
+Name entities on tokens : 
