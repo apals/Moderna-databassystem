@@ -1,4 +1,6 @@
 
+// reads every sentence, and make the sentence table    
+
 #include <fstream>
 #include <iostream>
 #include <string.h>
@@ -20,6 +22,7 @@ int main(int argc, char* argv[]) {
         {
           std::cout <<article_id <<"."<<sentence_id <<"."<<line << '\n';
           sentence_id++;
+          if(sentence_id > 1230652) break;
         }
         myfile.close();
     }else 
