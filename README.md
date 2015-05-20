@@ -65,7 +65,7 @@ create table fras(id int, fras varchar(200)) ROW FORMAT DELIMITED FIELDS TERMINA
 
 create table sent(id INT, fras STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ".";  </br>
 
-create table Sentences(article_id INT, sentence_id INT, sentence STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ".";</br>
+create table sentences(article_id INT, sentence_id INT, sentence STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ".";</br>
 
 
 select REGEXP_EXTRACT(fras, '(May)', 0) as from senty; </br>
