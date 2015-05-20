@@ -72,14 +72,6 @@ set mapred.job.tracker = local; </br>
 
 
 
-======== - udfs - ==========
-
-1. jar cf myjar className.class </br>
-2. hive > add jar '/home/jb/KTH/myjar' </br>
-3. create temporary function funcName as 'className' </br>
-4. select funcName(fras) from senty; </br>
-5. 
-
 
 ============== - queries - ==================
 This is documentation from https://github.com/apache/hive/blob/trunk/contrib/src/java/org/apache/hadoop/hive/contrib/serde2/RegexSerDe.java
@@ -127,3 +119,33 @@ https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html</br>
 Problems:</br>
  java.lang.NoClassDefFoundError:edu/stanford/nlp/tagger/maxent/MaxentTagger</br>
  Solution: Build with jre 1.8</br>
+ 
+ 
+ 
+ 
+ 
+ ==== ------ UDF ------- =================
+ 
+ ==== hive ============
+ 
+1. jar cf myjar className.class </br>
+2. hive> add jar '/home/jb/KTH/myjar' </br>
+3. hive> create temporary function funcName as 'className' </br>
+4. hive> select funcName(fras) from senty; </br>
+
+step 2 can give an error.  Fix :  add jar /home/jb/KTH/myjar </br>
+
+===== pig =======
+
+$ pig -x local (otherwise you have to add the .jars to hdfs with hadoop fs -put /path/to/jar </br>
+grunt> register /Users/apals/.../*.jar </br>
+/* YOU NEED TO REGISTER ALL DEPENDENCIES TOO, I.E. REGISTER LIBS FOLDER FROM CRFProjectPig */ </br>
+grunt> things = LOAD '/Users/apals/KTH/Moderna-databassystem/pigdata/*' as (name:chararray); </br>
+grunt> matched = foreach things generate myudfs.PigUdf7(name); </br>
+    WHERE myudfs is the package where the class is stored. PigUdf7 is the class name. </br>
+grunt> dump matched</br>
+(-LRB-/OMike/PERSON-RRB-/O)
+(-LRB-/OMicrosoft/ORGANIZATION-RRB-/O)
+
+grunt> things = LOAD '/Users/apals/KTH/Moderna-databassystem/pigdata/*' as (name:chararray);
+
