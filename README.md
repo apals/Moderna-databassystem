@@ -161,4 +161,7 @@ grunt> things = LOAD '/Users/apals/KTH/Moderna-databassystem/pigdata/*' as (name
 
 ========= ------- HIVE TESTS ------- =====================
 
-SELECT count(*) FROM (SELECT regexp_extract(sentence, "(January|February|March|April|May|June|July|August|September|October|November|December)", 0) as match from sentences) t2 WHERE match <> "";
+hive> SELECT count(*) FROM (SELECT regexp_extract(sentence, "(January|February|March|April|May|June|July|August|September|October|November|December)", 0) as match from sentences) t2 WHERE match <> "";
+
+
+hive> SELECT count(*) FROM (SELECT regexp_extract(token, "(January|February|March|April|May|June|July|August|September|October|November|December)", 0) as match from tokens) t2 WHERE match <> "";
