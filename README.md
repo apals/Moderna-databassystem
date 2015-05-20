@@ -139,7 +139,7 @@ Problems:</br>
 step 2 can give an error.  Fix :  add jar /home/jb/KTH/myjar </br>
 
 ===== pig =======
-
+$ 
 $ pig -x local (otherwise you have to add the .jars to hdfs with hadoop fs -put /path/to/jar </br>
 grunt> register /Users/apals/.../*.jar </br>
 /* YOU NEED TO REGISTER ALL DEPENDENCIES TOO, I.E. REGISTER LIBS FOLDER FROM CRFProjectPig */ </br>
@@ -165,3 +165,6 @@ hive> SELECT count(*) FROM (SELECT regexp_extract(sentence, "(January|February|M
 
 
 hive> SELECT count(*) FROM (SELECT regexp_extract(token, "(January|February|March|April|May|June|July|August|September|October|November|December)", 0) as match from tokens) t2 WHERE match <> "";
+
+$ pig -Dpig.spill.extragc.size.threshold=100000000 -x local conf_local.pig </br>
+osäker på antalet nollor lol</br>
