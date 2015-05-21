@@ -68,10 +68,10 @@ UDF - CRF
 Name entities ON tokens : 9m 59sec, rows : 7073379
 
 limit 20k
-Name entities on tokens : 
+Name entities on tokens :  2m27sce
 
 limit 40k
-Name entities on tokens : 
+Name entities on tokens : 2m35sec
 
 limit 80k
-Name entities on tokens : 
+Name entities on tokens : 2m36sec
