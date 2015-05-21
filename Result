@@ -89,3 +89,9 @@ Name entities on tokens : 2m35sec
 
 limit 80k
 Name entities on tokens : 2m36sec
+
+
+
+40 million : 378 secs
+50 million:  496 secs
+66million :  599 secs
