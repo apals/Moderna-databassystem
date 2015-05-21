@@ -20,7 +20,7 @@ REGEX - Count on Months, Tokens : 98.724 sec , 97.713 sec
 
 
 UDF - CRF
-Name entities ON tokens : 6219.779 secs , rows : 7073379
+Name entities ON tokens : 592.589 sec  ///// OLD SHIET 6219.779 secs , rows : 7073379
 
 limit 20k
 Name entities on tokens : 19.06 secs
@@ -31,7 +31,21 @@ Name entities on tokens : 25.88 secs
 limit 80k
 Name entities on tokens : 50.932 secs
 
+limit 1M
+Name entities on tokens : 553.739
 
+limit 2M
+594.628 secs
+
+limit 4m
+594.650
+
+
+20 million :  
+
+40 million : 367.018
+50 million: 479.776 secs
+66million : 592.589 sec
 
 
 
