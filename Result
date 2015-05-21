@@ -65,7 +65,7 @@ REGEX - Count on Months, Tokens : 237.00 secs
 
 
 UDF - CRF
-Name entities ON tokens : , rows : 7073379
+Name entities ON tokens : 9m 59sec, rows : 7073379
 
 limit 20k
 Name entities on tokens : 
